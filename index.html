@@ -349,16 +349,20 @@ body.visitor #ci-form-wrap{display:none!important}
 
 /* 实验室页面 */
 .lab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:24px}
-.lab-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px;text-align:center;cursor:pointer;transition:all .2s var(--ease)}
-.lab-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:var(--shadow-lg)}
-.lab-icon{font-size:40px;margin-bottom:12px}
-.lab-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px}
-.lab-desc{font-size:12px;color:var(--text3)}
-#lab-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;display:none}
+.lab-card{background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:var(--r-lg);padding:28px 20px;text-align:center;cursor:pointer;transition:all .3s var(--ease);position:relative;overflow:hidden}
+.lab-card::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(45deg,transparent,rgba(91,91,214,0.1),transparent);opacity:0;transition:opacity .3s}
+.lab-card:hover{border-color:var(--accent);transform:translateY(-6px);box-shadow:var(--shadow-lg),0 0 20px rgba(91,91,214,0.2)}
+.lab-card:hover::before{opacity:1}
+.lab-icon{font-size:36px;margin-bottom:14px;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.1))}
+.lab-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px;letter-spacing:0.02em}
+.lab-desc{font-size:11px;color:var(--text3);line-height:1.4}
+#lab-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;display:none;background:#000}
 #lab-canvas.on{display:block;pointer-events:auto}
-.lab-close{display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:10000;background:var(--bg);border:1px solid var(--border);padding:10px 20px;border-radius:99px;font-size:13px;color:var(--text);box-shadow:var(--shadow-lg);cursor:pointer}
+.lab-close{display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:10000;background:rgba(255,255,255,0.95);border:none;padding:12px 28px;border-radius:99px;font-size:13px;font-weight:600;color:#333;box-shadow:0 4px 20px rgba(0,0,0,0.3);cursor:pointer;backdrop-filter:blur(10px)}
 .lab-close.on{display:block}
-.lab-close:hover{background:var(--bg-hover)}
+.lab-close:hover{background:#fff;transform:translateX(-50%) scale(1.05)}
+.dark .lab-close{background:rgba(30,30,30,0.95);color:#f0f0f0}
+.dark .lab-close:hover{background:rgba(50,50,50,0.95)}
 
 .series-list{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:640px){.series-list{grid-template-columns:1fr}}
@@ -661,27 +665,37 @@ body.immersive #immersive-exit{display:inline-flex}
 </div>
 
 <div id="pg-lab" class="pg">
-  <div class="page-hd"><div><div class="page-title">实验室</div><div class="page-sub">探索炫酷的实验性功能</div></div></div>
+  <div class="page-hd"><div><div class="page-title">实验室</div><div class="page-sub">现代生成艺术 × 视觉实验</div></div></div>
   <div class="lab-grid">
-    <div class="lab-card" onclick="startParticles()">
-      <div class="lab-icon">✨</div>
-      <div class="lab-title">粒子特效</div>
-      <div class="lab-desc">鼠标跟随粒子动画</div>
+    <div class="lab-card" onclick="startFluid()">
+      <div class="lab-icon">🌊</div>
+      <div class="lab-title">流体渐变</div>
+      <div class="lab-desc">噪声驱动的色彩流动</div>
     </div>
-    <div class="lab-card" onclick="startMatrix()">
-      <div class="lab-icon">🔢</div>
-      <div class="lab-title">矩阵雨</div>
-      <div class="lab-desc">黑客帝国风格动画</div>
+    <div class="lab-card" onclick="startNebula()">
+      <div class="lab-icon">🌌</div>
+      <div class="lab-title">星云宇宙</div>
+      <div class="lab-desc">3D粒子星空系统</div>
     </div>
-    <div class="lab-card" onclick="startFireworks()">
-      <div class="lab-icon">🎆</div>
-      <div class="lab-title">烟花绽放</div>
-      <div class="lab-desc">点击屏幕放烟花</div>
+    <div class="lab-card" onclick="startFractal()">
+      <div class="lab-icon">◈</div>
+      <div class="lab-title">分形艺术</div>
+      <div class="lab-desc">递归曼德布罗特集</div>
     </div>
-    <div class="lab-card" onclick="startRipple()">
-      <div class="lab-icon">💧</div>
-      <div class="lab-title">水波纹</div>
-      <div class="lab-desc">点击产生涟漪效果</div>
+    <div class="lab-card" onclick="startAurora()">
+      <div class="lab-icon">🌈</div>
+      <div class="lab-title">极光</div>
+      <div class="lab-desc">北极光波动效果</div>
+    </div>
+    <div class="lab-card" onclick="startKaleidoscope()">
+      <div class="lab-icon">✧</div>
+      <div class="lab-title">几何万花筒</div>
+      <div class="lab-desc">旋转对称生成艺术</div>
+    </div>
+    <div class="lab-card" onclick="startOcean()">
+      <div class="lab-icon">〜</div>
+      <div class="lab-title">波浪海洋</div>
+      <div class="lab-desc">多层正弦波叠加</div>
     </div>
   </div>
   <canvas id="lab-canvas"></canvas>
@@ -853,10 +867,12 @@ body.immersive #immersive-exit{display:inline-flex}
     window.redoEditor = window.redoEditor || function() { console.warn('redoEditor 延迟定义'); };
     window.openCmd = window.openCmd || function() { console.warn('openCmd 延迟定义'); };
     window.closeCmd = window.closeCmd || function() { console.warn('closeCmd 延迟定义'); };
-    window.startParticles = window.startParticles || function() { console.warn('startParticles 延迟定义'); };
-    window.startMatrix = window.startMatrix || function() { console.warn('startMatrix 延迟定义'); };
-    window.startFireworks = window.startFireworks || function() { console.warn('startFireworks 延迟定义'); };
-    window.startRipple = window.startRipple || function() { console.warn('startRipple 延迟定义'); };
+    window.startFluid = window.startFluid || function() { console.warn('startFluid 延迟定义'); };
+    window.startNebula = window.startNebula || function() { console.warn('startNebula 延迟定义'); };
+    window.startFractal = window.startFractal || function() { console.warn('startFractal 延迟定义'); };
+    window.startAurora = window.startAurora || function() { console.warn('startAurora 延迟定义'); };
+    window.startKaleidoscope = window.startKaleidoscope || function() { console.warn('startKaleidoscope 延迟定义'); };
+    window.startOcean = window.startOcean || function() { console.warn('startOcean 延迟定义'); };
     window.stopLabEffect = window.stopLabEffect || function() { console.warn('stopLabEffect 延迟定义'); };
 })();
 // ==================== 补丁结束 ====================
@@ -1505,8 +1521,8 @@ function renderLab(){
 }
 var COLORS=['#6366f1','#e74c3c','#27ae60','#e67e22','#2980b9','#8e44ad','#16a085','#d35400'];
 
-/* ═══ Lab Effects ═══ */
-var labAnimationId=null,labParticles=[],labCanvas=null,labCtx=null;
+/* ═══ Lab Effects - 现代艺术框架 ═══ */
+var labAnimationId=null,labCanvas=null,labCtx=null,labTime=0;
 function initLabCanvas(){
   labCanvas=document.getElementById('lab-canvas');
   labCtx=labCanvas.getContext('2d');
@@ -1514,131 +1530,298 @@ function initLabCanvas(){
   labCanvas.height=window.innerHeight;
   labCanvas.classList.add('on');
   document.querySelector('.lab-close').classList.add('on');
+  labCanvas.onmousemove=null;labCanvas.onclick=null;labTime=0;
 }
 function stopLabEffect(){
   if(labAnimationId){cancelAnimationFrame(labAnimationId);labAnimationId=null;}
-  labParticles=[];
   if(labCanvas){labCanvas.classList.remove('on');}
   var closeBtn=document.querySelector('.lab-close');
   if(closeBtn)closeBtn.classList.remove('on');
   if(labCtx)labCtx.clearRect(0,0,labCanvas.width,labCanvas.height);
 }
-function startParticles(){
+
+// 1. 流体渐变 - 基于噪声的流动色彩
+function startFluid(){
   initLabCanvas();
-  labParticles=[];
+  var noise=function(x,y,t){return Math.sin(x*0.01+t)*Math.cos(y*0.01+t)*0.5+Math.sin((x+y)*0.005+t*0.7)*0.5;};
   var mouse={x:labCanvas.width/2,y:labCanvas.height/2};
   labCanvas.onmousemove=function(e){mouse.x=e.clientX;mouse.y=e.clientY;};
   function animate(){
-    labCtx.fillStyle='rgba(0,0,0,0.1)';
-    labCtx.fillRect(0,0,labCanvas.width,labCanvas.height);
-    for(var i=0;i<2;i++){
-      labParticles.push({
-        x:mouse.x,y:mouse.y,
-        vx:(Math.random()-0.5)*4,
-        vy:(Math.random()-0.5)*4,
-        life:60,
-        color:'hsl('+Math.random()*360+',70%,60%)'
-      });
+    var w=labCanvas.width,h=labCanvas.height;
+    var img=labCtx.createImageData(w,h);
+    var d=img.data;
+    for(var y=0;y<h;y+=2){
+      for(var x=0;x<w;x+=2){
+        var dx=(x-mouse.x)*0.002,dy=(y-mouse.y)*0.002;
+        var n1=noise(x,y,labTime*0.01)+noise(x*0.5,y*0.5,labTime*0.02);
+        var n2=noise(x+100,y+100,labTime*0.015);
+        var r=Math.sin(n1*3.14+labTime*0.02)*127+128;
+        var g=Math.sin(n1*3.14+2+labTime*0.025)*127+128;
+        var b=Math.sin(n1*3.14+4+labTime*0.03)*127+128;
+        for(var dy2=0;dy2<2;dy2++)for(var dx2=0;dx2<2;dx2++){
+          var i=((y+dy2)*w+(x+dx2))*4;
+          d[i]=r;d[i+1]=g;d[i+2]=b;d[i+3]=255;
+        }
+      }
     }
-    for(var i=labParticles.length-1;i>=0;i--){
-      var p=labParticles[i];
-      p.x+=p.vx;p.y+=p.vy;p.life--;
-      labCtx.beginPath();
-      labCtx.arc(p.x,p.y,3,0,Math.PI*2);
-      labCtx.fillStyle=p.color;
-      labCtx.globalAlpha=p.life/60;
-      labCtx.fill();
-      labCtx.globalAlpha=1;
-      if(p.life<=0)labParticles.splice(i,1);
-    }
+    labCtx.putImageData(img,0,0);
+    labTime++;
     labAnimationId=requestAnimationFrame(animate);
   }
   animate();
 }
-function startMatrix(){
+
+// 2. 星云宇宙 - 3D星空粒子系统
+function startNebula(){
   initLabCanvas();
-  var cols=Math.floor(labCanvas.width/14);
-  var drops=new Array(cols).fill(1);
-  var chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*';
+  var stars=[],nebula=[];
+  for(var i=0;i<800;i++){
+    stars.push({
+      x:Math.random()*labCanvas.width,y:Math.random()*labCanvas.height,
+      z:Math.random()*3,size:Math.random()*2,
+      twinkle:Math.random()*Math.PI*2
+    });
+  }
+  for(var i=0;i<50;i++){
+    nebula.push({
+      x:Math.random()*labCanvas.width,y:Math.random()*labCanvas.height,
+      r:50+Math.random()*150,hue:Math.random()*360,
+      vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3
+    });
+  }
+  function animate(){
+    labCtx.fillStyle='#000';
+    labCtx.fillRect(0,0,labCanvas.width,labCanvas.height);
+    // 星云
+    for(var i=0;i<nebula.length;i++){
+      var n=nebula[i];
+      n.x+=n.vx;n.y+=n.vy;
+      if(n.x<0)n.x=labCanvas.width;if(n.x>labCanvas.width)n.x=0;
+      if(n.y<0)n.y=labCanvas.height;if(n.y>labCanvas.height)n.y=0;
+      var grad=labCtx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r);
+      grad.addColorStop(0,'hsla('+n.hue+',80%,50%,0.1)');
+      grad.addColorStop(0.5,'hsla('+n.hue+',70%,40%,0.05)');
+      grad.addColorStop(1,'transparent');
+      labCtx.fillStyle=grad;
+      labCtx.fillRect(n.x-n.r,n.y-n.r,n.r*2,n.r*2);
+    }
+    // 星星
+    for(var i=0;i<stars.length;i++){
+      var s=stars[i];
+      s.z+=0.02;s.twinkle+=0.05;
+      if(s.z>3)s.z=0;
+      var scale=1-s.z/4;
+      var x=(s.x-labCanvas.width/2)*scale+labCanvas.width/2;
+      var y=(s.y-labCanvas.height/2)*scale+labCanvas.height/2;
+      var alpha=0.3+Math.sin(s.twinkle)*0.4;
+      labCtx.beginPath();
+      labCtx.arc(x,y,s.size*scale,0,Math.PI*2);
+      labCtx.fillStyle='rgba(255,255,255,'+alpha+')';
+      labCtx.fill();
+    }
+    labTime++;
+    labAnimationId=requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+// 3. 分形之树 - 递归分形生成
+function startFractal(){
+  initLabCanvas();
+  function drawBranch(x,y,len,angle,depth,hue){
+    if(depth===0||len<2)return;
+    var x2=x+Math.cos(angle)*len;
+    var y2=y+Math.sin(angle)*len;
+    labCtx.beginPath();
+    labCtx.moveTo(x,y);
+    labCtx.lineTo(x2,y2);
+    labCtx.strokeStyle='hsl('+(hue+depth*15)+',70%,'+(40+depth*4)+'%)';
+    labCtx.lineWidth=depth*0.8;
+    labCtx.stroke();
+    var swing=Math.sin(labTime*0.02+depth*0.3)*0.1;
+    drawBranch(x2,y2,len*0.7,angle-0.5+swing,depth-1,hue);
+    drawBranch(x2,y2,len*0.7,angle+0.5+swing,depth-1,hue);
+  }
   function animate(){
     labCtx.fillStyle='rgba(0,0,0,0.05)';
     labCtx.fillRect(0,0,labCanvas.width,labCanvas.height);
-    labCtx.fillStyle='#0f0';
-    labCtx.font='14px monospace';
-    for(var i=0;i<drops.length;i++){
-      var char=chars[Math.floor(Math.random()*chars.length)];
-      labCtx.fillText(char,i*14,drops[i]*14);
-      if(drops[i]*14>labCanvas.height&&Math.random()>0.975)drops[i]=0;
-      drops[i]++;
-    }
+    var hue=(labTime*0.5)%360;
+    drawBranch(labCanvas.width/2,labCanvas.height,120,-Math.PI/2,11,hue);
+    labTime++;
     labAnimationId=requestAnimationFrame(animate);
   }
   animate();
 }
-function startFireworks(){
+
+// 4. 极光 - 北极光效果
+function startAurora(){
   initLabCanvas();
-  var rockets=[],particles=[];
-  labCanvas.onclick=function(e){
-    rockets.push({x:e.clientX,y:labCanvas.height,vy:-8-Math.random()*4,targetY:e.clientY,hue:Math.random()*360});
-  };
+  var waves=[];
+  for(var i=0;i<8;i++){
+    waves.push({
+      y:labCanvas.height*0.3+Math.random()*labCanvas.height*0.4,
+      amplitude:30+Math.random()*80,
+      frequency:0.002+Math.random()*0.003,
+      speed:0.02+Math.random()*0.02,
+      phase:Math.random()*Math.PI*2,
+      hue:100+Math.random()*80
+    });
+  }
   function animate(){
-    labCtx.fillStyle='rgba(0,0,0,0.15)';
+    labCtx.fillStyle='#001';
     labCtx.fillRect(0,0,labCanvas.width,labCanvas.height);
-    // rockets
-    for(var i=rockets.length-1;i>=0;i--){
-      var r=rockets[i];
-      r.y+=r.vy;
+    for(var i=0;i<waves.length;i++){
+      var w=waves[i];
+      w.phase+=w.speed;
       labCtx.beginPath();
-      labCtx.arc(r.x,r.y,3,0,Math.PI*2);
-      labCtx.fillStyle='hsl('+r.hue+',100%,70%)';
-      labCtx.fill();
-      if(r.y<=r.targetY){
-        for(var j=0;j<30;j++){
-          var angle=Math.random()*Math.PI*2,speed=Math.random()*6+2;
-          particles.push({x:r.x,y:r.y,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,hue:r.hue,life:60});
-        }
-        rockets.splice(i,1);
+      labCtx.moveTo(0,labCanvas.height);
+      for(var x=0;x<=labCanvas.width;x+=5){
+        var y=w.y+Math.sin(x*w.frequency+w.phase)*w.amplitude+Math.sin(x*w.frequency*2+w.phase*1.3)*w.amplitude*0.5;
+        labCtx.lineTo(x,y);
       }
-    }
-    // particles
-    for(var i=particles.length-1;i>=0;i--){
-      var p=particles[i];
-      p.x+=p.vx;p.y+=p.vy;p.vy+=0.1;p.life--;
-      labCtx.beginPath();
-      labCtx.arc(p.x,p.y,2,0,Math.PI*2);
-      labCtx.fillStyle='hsl('+p.hue+',100%,60%)';
-      labCtx.globalAlpha=p.life/60;
+      labCtx.lineTo(labCanvas.width,labCanvas.height);
+      labCtx.closePath();
+      var grad=labCtx.createLinearGradient(0,w.y-w.amplitude,0,labCanvas.height);
+      grad.addColorStop(0,'hsla('+w.hue+',80%,50%,0.3)');
+      grad.addColorStop(0.3,'hsla('+w.hue+',70%,40%,0.15)');
+      grad.addColorStop(1,'transparent');
+      labCtx.fillStyle=grad;
       labCtx.fill();
-      labCtx.globalAlpha=1;
-      if(p.life<=0)particles.splice(i,1);
     }
-    labAnimationId=requestAnimationFrame(animate);
-  }
-  animate();
-  toast('点击屏幕放烟花 🎆','ok');
-}
-function startRipple(){
-  initLabCanvas();
-  var ripples=[];
-  labCanvas.onclick=function(e){
-    ripples.push({x:e.clientX,y:e.clientY,r:0,maxR:150,alpha:1});
-  };
-  function animate(){
-    labCtx.clearRect(0,0,labCanvas.width,labCanvas.height);
-    for(var i=ripples.length-1;i>=0;i--){
-      var r=ripples[i];
-      r.r+=3;r.alpha=1-r.r/r.maxR;
+    // 星星
+    for(var i=0;i<100;i++){
+      var sx=(Math.sin(i*123.456+labTime*0.001)*0.5+0.5)*labCanvas.width;
+      var sy=(Math.cos(i*789.012+labTime*0.002)*0.5+0.5)*labCanvas.height*0.6;
+      var alpha=0.3+Math.sin(labTime*0.1+i)*0.3;
       labCtx.beginPath();
-      labCtx.arc(r.x,r.y,r.r,0,Math.PI*2);
-      labCtx.strokeStyle='rgba(100,149,237,'+r.alpha+')';
-      labCtx.lineWidth=2;
-      labCtx.stroke();
-      if(r.r>=r.maxR)ripples.splice(i,1);
+      labCtx.arc(sx,sy,1,0,Math.PI*2);
+      labCtx.fillStyle='rgba(255,255,255,'+alpha+')';
+      labCtx.fill();
     }
+    labTime++;
     labAnimationId=requestAnimationFrame(animate);
   }
   animate();
-  toast('点击屏幕产生涟漪 💧','ok');
+}
+
+// 5. 几何万花筒 - 旋转对称图案
+function startKaleidoscope(){
+  initLabCanvas();
+  var cx=labCanvas.width/2,cy=labCanvas.height/2;
+  var segments=12;
+  var shapes=[];
+  for(var i=0;i<30;i++){
+    shapes.push({
+      r:50+Math.random()*200,angle:Math.random()*Math.PI*2,
+      size:5+Math.random()*30,rotation:Math.random()*Math.PI*2,
+      speed:(Math.random()-0.5)*0.02,rspeed:(Math.random()-0.5)*0.05,
+      hue:Math.random()*360
+    });
+  }
+  function animate(){
+    labCtx.fillStyle='rgba(0,0,0,0.1)';
+    labCtx.fillRect(0,0,labCanvas.width,labCanvas.height);
+    for(var s=0;s<segments;s++){
+      labCtx.save();
+      labCtx.translate(cx,cy);
+      labCtx.rotate(s*Math.PI*2/segments+labTime*0.005);
+      for(var i=0;i<shapes.length;i++){
+        var sh=shapes[i];
+        sh.angle+=sh.speed;sh.rotation+=sh.rspeed;
+        var x=Math.cos(sh.angle)*sh.r;
+        var y=Math.sin(sh.angle)*sh.r;
+        labCtx.save();
+        labCtx.translate(x,y);
+        labCtx.rotate(sh.rotation);
+        labCtx.fillStyle='hsla('+((sh.hue+labTime*0.5)%360)+',70%,50%,0.6)';
+        labCtx.beginPath();
+        // 多边形
+        var sides=3+Math.floor(Math.random()*4);
+        for(var j=0;j<sides;j++){
+          var a=j*Math.PI*2/sides;
+          var px=Math.cos(a)*sh.size,py=Math.sin(a)*sh.size;
+          if(j===0)labCtx.moveTo(px,py);
+          else labCtx.lineTo(px,py);
+        }
+        labCtx.closePath();labCtx.fill();
+        labCtx.restore();
+      }
+      labCtx.restore();
+    }
+    labTime++;
+    labAnimationId=requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+// 6. 波浪海洋 - 海浪模拟
+function startOcean(){
+  initLabCanvas();
+  var waves=[];
+  for(var i=0;i<5;i++){
+    waves.push({
+      y:labCanvas.height*0.5+i*40,
+      amplitude:20+Math.random()*40,
+      frequency:0.005+Math.random()*0.01,
+      speed:0.02+Math.random()*0.02,
+      phase:Math.random()*Math.PI*2,
+      hue:200+i*10
+    });
+  }
+  var foam=[];
+  function animate(){
+    var grad=labCtx.createLinearGradient(0,0,0,labCanvas.height);
+    grad.addColorStop(0,'#1a1a2e');
+    grad.addColorStop(0.5,'#16213e');
+    grad.addColorStop(1,'#0f3460');
+    labCtx.fillStyle=grad;
+    labCtx.fillRect(0,0,labCanvas.width,labCanvas.height);
+    // 月亮
+    labCtx.beginPath();
+    labCtx.arc(labCanvas.width*0.8,80,40,0,Math.PI*2);
+    labCtx.fillStyle='rgba(255,255,200,0.9)';
+    labCtx.fill();
+    labCtx.beginPath();
+    labCtx.arc(labCanvas.width*0.8+15,75,35,0,Math.PI*2);
+    labCtx.fillStyle='#1a1a2e';
+    labCtx.fill();
+    // 波浪
+    for(var i=waves.length-1;i>=0;i--){
+      var w=waves[i];
+      w.phase+=w.speed;
+      labCtx.beginPath();
+      labCtx.moveTo(0,labCanvas.height);
+      for(var x=0;x<=labCanvas.width;x+=5){
+        var y=w.y+Math.sin(x*w.frequency+w.phase)*w.amplitude;
+        y+=Math.sin(x*w.frequency*2+w.phase*1.5)*w.amplitude*0.3;
+        labCtx.lineTo(x,y);
+        // 泡沫
+        if(Math.random()<0.002&&i===0){
+          foam.push({x:x,y:y-5,life:30,vx:Math.random()*2-1});
+        }
+      }
+      labCtx.lineTo(labCanvas.width,labCanvas.height);
+      labCtx.closePath();
+      var waveGrad=labCtx.createLinearGradient(0,w.y-w.amplitude,0,labCanvas.height);
+      waveGrad.addColorStop(0,'hsla('+w.hue+',70%,'+(40-i*5)+'%,0.8)');
+      waveGrad.addColorStop(1,'hsla('+(w.hue+20)+',60%,30%,0.9)');
+      labCtx.fillStyle=waveGrad;
+      labCtx.fill();
+    }
+    // 泡沫
+    for(var i=foam.length-1;i>=0;i--){
+      var f=foam[i];
+      f.x+=f.vx;f.y-=0.5;f.life--;
+      labCtx.beginPath();
+      labCtx.arc(f.x,f.y,2,0,Math.PI*2);
+      labCtx.fillStyle='rgba(255,255,255,'+(f.life/30)*0.8+')';
+      labCtx.fill();
+      if(f.life<=0)foam.splice(i,1);
+    }
+    labTime++;
+    labAnimationId=requestAnimationFrame(animate);
+  }
+  animate();
 }
 function renderDash(){
   var pub=posts.filter(function(p){return !p.draft;});
@@ -2148,6 +2331,7 @@ function getCmdActions(){
     {id:'nav-home',group:'导航',label:'前往技术首页',icon:'home',action:function(){goNav('home');}},
     {id:'nav-tags',label:'标签分类',icon:'hash',action:function(){goNav('tags');}},
     {id:'nav-series',label:'系列专栏',icon:'layers',action:function(){goNav('series');}},
+    {id:'nav-lab',label:'实验室',icon:'flask-conical',action:function(){goNav('lab');}},
     {id:'nav-about',label:'关于',icon:'user',action:function(){goNav('about');}},
   ];
   if(!isVisitorMode){
@@ -2378,6 +2562,8 @@ function _nav(id,el){
   if(el)el.classList.add('on');
   else if(map[id]!==undefined)document.querySelectorAll('.nl button')[map[id]].classList.add('on');
   document.querySelectorAll('.pi.kb-focus').forEach(function(p){p.classList.remove('kb-focus');});
+  // 离开非实验室页面时停止特效
+  if(id!=='lab')stopLabEffect();
   if(id==='home'){renderTagBar();refreshHome();}
   if(id==='life')renderCheckins();
   if(id==='tags')renderTags();
@@ -2453,10 +2639,12 @@ window.undoEditor = undoEditor;
 window.redoEditor = redoEditor;
 window.openCmd = openCmd;
 window.closeCmd = closeCmd;
-window.startParticles = startParticles;
-window.startMatrix = startMatrix;
-window.startFireworks = startFireworks;
-window.startRipple = startRipple;
+window.startFluid = startFluid;
+window.startNebula = startNebula;
+window.startFractal = startFractal;
+window.startAurora = startAurora;
+window.startKaleidoscope = startKaleidoscope;
+window.startOcean = startOcean;
 window.stopLabEffect = stopLabEffect;
 
 /* ═══ Init ═══ */
@@ -2472,18 +2660,6 @@ document.addEventListener('click',function(e){
 });
 
 window.addEventListener('load',async function(){
-  // ========== 每次打开自动清除缓存 ==========
-  try {
-    localStorage.removeItem('devblog_v12');
-    localStorage.removeItem('devblog_v11');
-    localStorage.removeItem('devblog_v10');
-    localStorage.removeItem('devblog_v9');
-    localStorage.removeItem('devblog_v12_draft');
-    sessionStorage.clear();
-    console.log('[Cache] 已自动清理缓存数据');
-  } catch(e) { console.warn('[Cache] 清理失败:', e); }
-  // =========================================
-
   // Update kbd display for platform
   document.getElementById('cmd-kbd').textContent=MOD_KEY+'K';
   document.getElementById('publish-kbd').textContent=MOD_KEY+'⏎';
@@ -2554,11 +2730,8 @@ function clearAppCache() {
 }
 
 function forceRefresh() {
-  toast('🔄 正在强制刷新...', 'ok', {duration: 1500});
-  // 使用 location.reload(true) 强制绕过缓存重新加载
-  setTimeout(function() {
-    location.reload(true);
-  }, 100);
+  // 只刷新页面，不清除任何缓存数据
+  location.reload();
 }
 
 // 确保函数暴露在全局
