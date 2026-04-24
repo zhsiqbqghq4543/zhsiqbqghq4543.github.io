@@ -1760,19 +1760,25 @@ function closeCheckinDetail(){
 function loadCiGiscus(id){
   if(!GISCUS_CONFIG.enabled)return;
   var container=document.getElementById('ci-giscus');
-  var iframe=document.createElement('iframe');
-  iframe.src='https://giscus.app/widget?'+
-    'repo='+encodeURIComponent(GISCUS_CONFIG.repo)+
-    '&repoId='+encodeURIComponent(GISCUS_CONFIG.repoId)+
-    '&category='+encodeURIComponent(GISCUS_CONFIG.category)+
-    '&categoryId='+encodeURIComponent(GISCUS_CONFIG.categoryId)+
-    '&mapping=specific'+
-    '&term=checkin-'+id+
-    '&theme='+(isDark?'dark':'light')+
-    '&reactionsEnabled=0';
-  iframe.setAttribute('loading','lazy');
-  iframe.style.cssText='width:100%;border:none;min-height:200px';
-  container.appendChild(iframe);
+  var theme=isDark?'dark':'light';
+  var script=document.createElement('script');
+  script.src='https://giscus.app/client.js';
+  script.setAttribute('data-repo',GISCUS_CONFIG.repo);
+  script.setAttribute('data-repo-id',GISCUS_CONFIG.repoId);
+  script.setAttribute('data-category',GISCUS_CONFIG.category);
+  script.setAttribute('data-category-id',GISCUS_CONFIG.categoryId);
+  script.setAttribute('data-mapping','specific');
+  script.setAttribute('data-term','checkin-'+id);
+  script.setAttribute('data-strict','0');
+  script.setAttribute('data-reactions-enabled','1');
+  script.setAttribute('data-emit-metadata','0');
+  script.setAttribute('data-input-position','top');
+  script.setAttribute('data-theme',theme);
+  script.setAttribute('data-lang','zh-CN');
+  script.setAttribute('crossorigin','anonymous');
+  script.async=true;
+  container.innerHTML='';
+  container.appendChild(script);
 }
 
 /* ═══ Lightbox ═══ */
