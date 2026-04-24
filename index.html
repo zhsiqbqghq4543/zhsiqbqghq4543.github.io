@@ -214,6 +214,13 @@ body.visitor .pi-quick-actions{display:none!important}
 .snav-label{font-size:11px;color:var(--text4);margin-bottom:4px;font-weight:500}
 .snav-title{font-size:14px;font-weight:600;color:var(--text)}
 
+/* 评论区域 */
+.comments-section{margin-top:32px;padding-top:24px;border-top:1px solid var(--border)}
+.comments-title{font-size:16px;font-weight:700;margin-bottom:16px;color:var(--text);display:flex;align-items:center;gap:8px}
+.comments-title i{color:var(--accent)}
+.giscus-container{width:100%;min-height:200px}
+.giscus{max-width:100%}
+
 .toc{position:sticky;top:72px}
 .toc-title{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--text4);margin-bottom:12px;font-weight:600}
 .toc a{display:block;color:var(--text3);padding:5px 0 5px 14px;border-left:2px solid var(--border);margin-bottom:2px;font-size:12.5px;transition:all .2s cubic-bezier(.4,0,.2,1);line-height:1.4;border-radius:0 6px 6px 0}
@@ -1155,6 +1162,17 @@ var editorBlocks=[],focusedBlockId=null;
 var editorHistory=[],historyCursor=-1;
 var slashForBlockId=null;
 var deletedCache=null;
+
+// ═══ Giscus 评论配置 ═══
+var GISCUS_CONFIG={
+  enabled:true,
+  repo:'cykx-ok/cykx-ok.github.io',
+  repoId:'R_kgDOSKgo-A',
+  category:'Announcements',
+  categoryId:'DIC_kwDOSKgo-M4C7kd-',
+  mapping:'pathname',
+  theme:'preferred_color_scheme'
+};
 var navStack=[]; // 导航历史栈
 
 /* ═══ Utils ═══ */
@@ -2466,12 +2484,47 @@ function openPost(id){
       detail+='</div>';
     }
   }
+  // 添加评论区域
+  if(GISCUS_CONFIG.enabled&&!p.draft){
+    detail+='<div class="comments-section"><div class="comments-title"><i data-lucide="message-circle"></i>评论</div><div class="giscus-container" id="giscus-container"></div></div>';
+  }
   document.getElementById('pdetail').innerHTML=detail;
   showPg('post');
   document.querySelectorAll('.nl button').forEach(function(b){b.classList.remove('on');});
   updateProgress();refreshIcons();setupTocObserver();
   if(typeof mermaid!=='undefined'){try{mermaid.run({querySelector:'.mermaid'});}catch(e){}}
+  // 加载 Giscus 评论
+  if(GISCUS_CONFIG.enabled&&!p.draft){
+    loadGiscus('giscus-container');
+  }
   window.scrollTo({top:0,behavior:'instant'});
+}
+
+// 加载 Giscus 评论
+function loadGiscus(containerId){
+  var container=document.getElementById(containerId);
+  if(!container||!GISCUS_CONFIG.repo)return;
+  var theme=GISCUS_CONFIG.theme;
+  if(theme==='preferred_color_scheme'){
+    theme=isDark?'dark':'light';
+  }
+  var script=document.createElement('script');
+  script.src='https://giscus.app/client.js';
+  script.setAttribute('data-repo',GISCUS_CONFIG.repo);
+  script.setAttribute('data-repo-id',GISCUS_CONFIG.repoId);
+  script.setAttribute('data-category',GISCUS_CONFIG.category);
+  script.setAttribute('data-category-id',GISCUS_CONFIG.categoryId);
+  script.setAttribute('data-mapping',GISCUS_CONFIG.mapping);
+  script.setAttribute('data-strict','0');
+  script.setAttribute('data-reactions-enabled','1');
+  script.setAttribute('data-emit-metadata','0');
+  script.setAttribute('data-input-position','top');
+  script.setAttribute('data-theme',theme);
+  script.setAttribute('data-lang','zh-CN');
+  script.setAttribute('crossorigin','anonymous');
+  script.async=true;
+  container.innerHTML='';
+  container.appendChild(script);
 }
 
 /* ═══ BLOCK EDITOR ═══ */
